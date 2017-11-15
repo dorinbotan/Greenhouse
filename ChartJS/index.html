@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="Chart.bundle.min.js"></script>
+</head>
+<body>
+    <canvas id="speedChart" width="600" height="400"></canvas>
+    
+    <script>
+        var speedCanvas = document.getElementById("speedChart");
+
+        var dataHumidity = {
+            label: "Humidity",
+            data: [20, 22, 23, 23, 22, 19, 18],
+            borderColor: '#4BC0C0',
+            backgroundColor: 'transparent',
+            pointBorderColor: '#4BC0C0',
+            pointBackgroundColor: '#4BC0C0',
+            pointRadius: 5,
+        };
+
+        var dataTemperature = {
+            label: "Temperature",
+            data: [22, 25, 28, 30, 32, 34, 29],
+            borderColor: '#FF6384',
+            backgroundColor: 'transparent',
+            pointBorderColor: '#FF6384',
+            pointBackgroundColor: '#FF6384',
+            pointRadius: 5
+        };
+        
+        var dataLight = {
+            label: "Light",
+            data: [80, 75, 72, 69, 65, 70, 75],
+            borderColor: '#FF9F40',
+            backgroundColor: 'transparent',
+            pointBorderColor: '#FF9F40',
+            pointBackgroundColor: '#FF9F40',
+            pointRadius: 5
+        };
+
+        var speedData = {
+            labels: ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00"],
+            datasets: [dataHumidity, dataTemperature, dataLight]
+        };
+
+        var chartOptions = {
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    boxWidth: 40,
+                    fontColor: 'black'
+                }
+            }
+        };
+
+        var lineChart = new Chart(speedCanvas, {
+            type: 'line',
+            data: speedData,
+            options: chartOptions
+        });
+    </script>
+</body>
+</html>
