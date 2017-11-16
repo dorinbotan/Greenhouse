@@ -16,8 +16,7 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
     if( header.method().compare( "GET" ) == 0 )
     {
         // Return temperature value
-
-        responseBody = QString( "Temperature" );
+        responseBody = QString::number( hih8120.getTemperature() );
         responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
     }
@@ -44,8 +43,7 @@ QString REST_API::processHumidity( QHttpRequestHeader header, QString body )
     if( header.method().compare( "GET" ) == 0 )
     {
         // Return humidity value
-
-        responseBody = QString( "Humidity" );
+        responseBody = QString::number( hih8120.getHumidity() );
         responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
     }
@@ -72,8 +70,7 @@ QString REST_API::processLight( QHttpRequestHeader header, QString body )
     if( header.method().compare( "GET" ) == 0 )
     {
         // Return light value
-
-        responseBody = QString( "Light" );
+        responseBody = QString::number( adc.readAnalog( 0 ) );
         responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
     }

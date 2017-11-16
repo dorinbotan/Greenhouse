@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include "REST_Server.h"
+#include "ADC.h"
 
 int main( int argc, char **argv )
 {
@@ -10,3 +11,4 @@ int main( int argc, char **argv )
 
     return app.exec();
 }
+
