@@ -8,7 +8,8 @@ HEADERS += \
     ADC.h \
     DAC.h \
     HIH8120.h \
-    I2CDevice.h
+    I2CDevice.h \
+    Logger.h
 
 SOURCES += \
     JSON.cpp \
@@ -19,4 +20,5 @@ SOURCES += \
     ADC.cpp \
     DAC.cpp \
     HIH8120.cpp \
-    I2CDevice.cpp
+    I2CDevice.cpp \
+    Logger.cpp

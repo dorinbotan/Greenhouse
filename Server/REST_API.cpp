@@ -1,9 +1,8 @@
 #include "REST_API.h"
+#include <QDebug>
 
 using QtJson::JsonObject;
 using QtJson::JsonArray;
-
-#include <QDebug>
 
 REST_API::REST_API()
 {
@@ -23,6 +22,8 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
     else if( header.method().compare( "POST" ) == 0 )
     {
         // Enable automatic temperature control at given value
+
+        logger.logAction( "" );
     }
     else if( header.method().compare( "PUT" ) == 0 )
     {
@@ -73,6 +74,8 @@ QString REST_API::processLight( QHttpRequestHeader header, QString body )
         responseBody = QString::number( adc.readAnalog( 0 ) );
         responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
+
+        logger.logAction( "hello world!" );
     }
     else if( header.method().compare( "POST" ) == 0 )
     {

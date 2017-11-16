@@ -4,6 +4,7 @@
 #include <QHttpResponseHeader>
 #include "MediaType.h"
 #include "JSON.h"
+#include "Logger.h"
 #include "ADC.h"
 #include "HIH8120.h"
 
@@ -22,6 +23,7 @@ private:
                                            QString contentType );
 
     MediaType mediaType;
+    Logger logger;
     ADC adc;
     HIH8120 hih8120;
 };
