@@ -17,8 +17,8 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
     {
         // Return temperature value
 
-        QString body = QString( "Temperature" );
-        QString header = getResponseHeader( 200, body.size(),
+        responseBody = QString( "Temperature" );
+        responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
     }
     else if( header.method().compare( "POST" ) == 0 )
@@ -34,7 +34,6 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
         // Disable automatic temperature control
     }
 
-    qDebug() << responseHeader + responseBody;
     return responseHeader + responseBody;
 }
 
@@ -46,8 +45,8 @@ QString REST_API::processHumidity( QHttpRequestHeader header, QString body )
     {
         // Return humidity value
 
-        QString body = QString( "Humidity" );
-        QString header = getResponseHeader( 200, body.size(),
+        responseBody = QString( "Humidity" );
+        responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
     }
     else if( header.method().compare( "POST" ) == 0 )
@@ -74,8 +73,8 @@ QString REST_API::processLight( QHttpRequestHeader header, QString body )
     {
         // Return light value
 
-        QString body = QString( "Light" );
-        QString header = getResponseHeader( 200, body.size(),
+        responseBody = QString( "Light" );
+        responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
     }
     else if( header.method().compare( "POST" ) == 0 )
@@ -101,6 +100,6 @@ QHttpResponseHeader REST_API::getResponseHeader( quint16 responseCode,
     QHttpResponseHeader toReturn( responseCode );
     toReturn.setContentType( contentType );
     toReturn.setContentLength( contentLength );
-    toReturn.setValue( "server", "BeagleBona Black EOS project" );
+    toReturn.setValue( "server", "BeagleBone Black Greenhouse" );
     return toReturn;
 }
