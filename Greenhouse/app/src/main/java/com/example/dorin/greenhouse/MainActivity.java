@@ -1,68 +1,78 @@
 package com.example.dorin.greenhouse;
 
-import android.content.Context;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.webkit.WebView;
+import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.Random;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private Greenhouse greenhouse;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         greenhouse = new Greenhouse();
 
-        final TextView humidityValue = (TextView)findViewById(R.id.humidityValueText);
-        final TextView temperatureValue = (TextView)findViewById(R.id.temperatureValueText);
-        final TextView lightValue = (TextView)findViewById(R.id.lightValueText);
+        webView = (WebView)findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/index.html");
 
         final Handler handler = new Handler();
-        final int delay = 1000; //milliseconds
-
         handler.postDelayed(new Runnable(){
             public void run(){
-                Random generator = new Random();
-
-                humidityValue.setText(Integer.toString(generator.nextInt(100) + 1) + " %");
-                temperatureValue.setText(Integer.toString(generator.nextInt(100) + 1) + " °C");
-                lightValue.setText(Integer.toString(generator.nextInt(100) + 1) + " %");
-
-                handler.postDelayed(this, delay);
+                updateValues();
+                handler.postDelayed(this, 3000);
             }
-        }, delay);
+        }, 0);
+
+        final SeekBar humiditySeekBar = (SeekBar)findViewById(R.id.humiditySeekBar);
+        humiditySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                System.out.println(seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+        });
     }
 
-    public void humidityButtonClick(View view) {
-        Context context = getApplicationContext();
-        CharSequence text = "Hello toast!";
-        int duration = Toast.LENGTH_SHORT;
+    private void updateValues() {
+        final TextView humidityValue = (TextView)findViewById(R.id.humidityValue);
+        final TextView temperatureValue = (TextView)findViewById(R.id.temperatureValue);
+        final TextView lightValue = (TextView)findViewById(R.id.lightValue);
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-        LinearLayout humidityDropdown = (LinearLayout) findViewById(R.id.humidityDropdown);
-        RelativeLayout temperatureButton = (RelativeLayout) findViewById(R.id.temperatureButton);
-
-        if(humidityDropdown.getVisibility() == View.GONE) {
-            humidityDropdown.setVisibility(View.VISIBLE);
-            humidityDropdown.animate().alpha(1.0f);
-            temperatureButton.animate().translationY(temperatureButton.getHeight());
+        try {
+            humidityValue.setText(greenhouse.getHumidity() + " %");
+        } catch (IOException e) {
+            humidityValue.setText("N/A");
         }
-        else {
-            humidityDropdown.setVisibility(View.GONE);
-            humidityDropdown.animate().alpha(0.0f);
-            temperatureButton.animate().translationY(0);
+
+        try {
+            temperatureValue.setText(greenhouse.getTemperature() + " °C");
+        } catch (IOException e) {
+            temperatureValue.setText("N/A");
+        }
+
+        try {
+            lightValue.setText(greenhouse.getLight() + " %");
+        } catch (IOException e) {
+            lightValue.setText("N/A");
         }
     }
 }

@@ -15,20 +15,32 @@ public class Greenhouse {
 
     public String getHumidity() throws IOException {
         Request request = new Request.Builder()
-                .url("http://192.168.87.116/humidity")
+                .url("http://192.168.87.110:8091/humidity")
                 .build();
+
+        throw new IOException();
 
 //        Response response = client.newCall(request).execute();
 //        return response.body().string();
-
-        return "50 %";
     }
 
-    public int getTemperature() {
-        return 0;
+    public String getTemperature() throws IOException {
+        Request request = new Request.Builder()
+                .url("http://192.168.87.110:8091/temperature")
+                .build();
+
+        throw new IOException();
+
+//        Response response = client.newCall(request).execute();
+//        return response.body().string();
     }
 
-    public int getLight() {
-        return 0;
+    public String getLight() throws IOException {
+        Request request = new Request.Builder()
+                .url("http://192.168.87.110:8091/light")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 }
