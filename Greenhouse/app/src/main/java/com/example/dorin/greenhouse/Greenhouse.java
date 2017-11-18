@@ -7,11 +7,18 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Greenhouse {
-    private OkHttpClient client;
+    private static Greenhouse instance;
+    private static OkHttpClient client;
 
-    public Greenhouse() {
-        client = new OkHttpClient();
+    public static synchronized Greenhouse getInstance() {
+        if (instance == null) {
+            instance = new Greenhouse();
+            client = new OkHttpClient();
+        }
+        return instance;
     }
+
+    private Greenhouse() {}
 
     public String getHumidity() throws IOException {
         Request request = new Request.Builder()

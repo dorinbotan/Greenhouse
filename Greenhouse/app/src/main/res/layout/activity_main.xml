@@ -28,7 +28,8 @@
             android:clickable="true"
             android:layout_width="@dimen/button_height"
             android:layout_height="match_parent"
-            android:background="?android:attr/selectableItemBackground"/>
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick=""/>
 
         <SeekBar
             android:id="@+id/humiditySeekBar"
@@ -62,7 +63,6 @@
 
             <TextView
                 android:id="@+id/humidityMode"
-                android:text="auto (32%)"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -126,7 +126,6 @@
 
             <TextView
                 android:id="@+id/temperatureMode"
-                android:text="auto (32%)"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -190,7 +189,6 @@
 
             <TextView
                 android:id="@+id/lightMode"
-                android:text="auto (32%)"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
