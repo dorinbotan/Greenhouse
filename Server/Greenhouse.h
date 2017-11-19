@@ -6,11 +6,43 @@
 #include "ADC.h"
 #include "DAC.h"
 #include "HIH8120.h"
-#include "HumidityController.h"
-#include "TemperatureController.h"
-#include "LightController.h"
 
 #include <QDebug>
+
+class Greenhouse;
+
+class HumidityController : public QThread
+{
+    Q_OBJECT
+
+public:
+    int value;
+
+protected:
+    void run();
+};
+
+class TemperatureController : public QThread
+{
+    Q_OBJECT
+
+public:
+    int value;
+
+protected:
+    void run();
+};
+
+class LightController : public QThread
+{
+    Q_OBJECT
+
+public:
+    int value;
+
+protected:
+    void run();
+};
 
 class Greenhouse
 {
@@ -32,8 +64,10 @@ public:
     bool getHeater();
     int getLamp();
 
-//    void setLid( int );
-//    void setHeater( bool );
+    // TODO: implement
+    void setLid( int );
+    // TODO: implement
+    void setHeater( bool );
     void setLamp( int );
 
 private:

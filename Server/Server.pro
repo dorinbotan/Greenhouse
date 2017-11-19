@@ -13,9 +13,6 @@ HEADERS += \
     I2CDevice.h \
     Logger.h \
     Greenhouse.h \
-    TemperatureController.h \
-    LightController.h \
-    HumidityController.h
 
 SOURCES += \
     JSON.cpp \
@@ -29,6 +26,3 @@ SOURCES += \
     I2CDevice.cpp \
     Logger.cpp \
     Greenhouse.cpp \
-    TemperatureController.cpp \
-    LightController.cpp \
-    HumidityController.cpp
