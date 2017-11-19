@@ -21,9 +21,10 @@ void Logger::logAction( QString message )
         process.waitForFinished();
 
         QString timeStamp = process.readAll();
+        QStringList values = timeStamp.split(' ');
 
         QTextStream stream( &file );
-        stream << timeStamp << message << endl;
+        stream << values[time] << values[date] << values[month] << message << endl;
 
         file.close();
     }
@@ -31,5 +32,13 @@ void Logger::logAction( QString message )
 
 void Logger::logSensorValues()
 {
+    QFile file( sensorLogFile );
 
+    if ( file.open( QIODevice::ReadWrite | QIODevice::Append ) )
+    {
+        QTextStream stream( &file );
+        stream << QString::number( adc.readAnalog( 0 ) ) << endl;
+
+        file.close();
+    }
 }
