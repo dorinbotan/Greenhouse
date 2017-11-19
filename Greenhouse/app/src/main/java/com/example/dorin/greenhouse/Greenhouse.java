@@ -7,28 +7,47 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Greenhouse {
-    private OkHttpClient client;
+    private static Greenhouse instance;
+    private static OkHttpClient client;
 
-    public Greenhouse() {
-        client = new OkHttpClient();
+    public static synchronized Greenhouse getInstance() {
+        if (instance == null) {
+            instance = new Greenhouse();
+            client = new OkHttpClient();
+        }
+        return instance;
     }
+
+    private Greenhouse() {}
 
     public String getHumidity() throws IOException {
         Request request = new Request.Builder()
-                .url("http://192.168.87.116/humidity")
+                .url("http://192.168.87.110:8091/humidity")
                 .build();
+
+        throw new IOException();
 
 //        Response response = client.newCall(request).execute();
 //        return response.body().string();
-
-        return "50 %";
     }
 
-    public int getTemperature() {
-        return 0;
+    public String getTemperature() throws IOException {
+        Request request = new Request.Builder()
+                .url("http://192.168.87.110:8091/temperature")
+                .build();
+
+        throw new IOException();
+
+//        Response response = client.newCall(request).execute();
+//        return response.body().string();
     }
 
-    public int getLight() {
-        return 0;
+    public String getLight() throws IOException {
+        Request request = new Request.Builder()
+                .url("http://192.168.87.110:8091/light")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 }
