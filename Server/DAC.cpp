@@ -41,7 +41,7 @@ DAC::~DAC()
     }
 }
 
-void DAC::setIntensity( uint8_t intensity )
+void DAC::setIntensity( int intensity )
 {
     fstream fs;
     fs.open( PWM_DUTY_CYCLE, fstream::out );
@@ -92,11 +92,11 @@ void DAC::getSlotNumbers( int *slotNumbers )
 
             if( g == "Manuf,am33xx_pwm" )
             {
-                slotNumbers[0] = stoi( a.substr( 0, a.find( ":" ) ) );
+//                slotNumbers[0] = stoi( a.substr( 0, a.find( ":" ) ) );
             }
             else if( g == "Manuf,BB-PWM1" )
             {
-                slotNumbers[1] = stoi( a.substr( 0, a.find( ":" ) ) );
+//                slotNumbers[1] = stoi( a.substr( 0, a.find( ":" ) ) );
             }
         }
     }

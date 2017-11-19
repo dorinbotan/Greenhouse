@@ -1,5 +1,7 @@
 QT += network
 
+QMAKE_CXXFLAGS += -std=c++11
+
 HEADERS += \
     JSON.h \
     MediaType.h \
@@ -10,7 +12,10 @@ HEADERS += \
     HIH8120.h \
     I2CDevice.h \
     Logger.h \
-    Greenhouse.h
+    Greenhouse.h \
+    TemperatureController.h \
+    LightController.h \
+    HumidityController.h
 
 SOURCES += \
     JSON.cpp \
@@ -23,4 +28,7 @@ SOURCES += \
     HIH8120.cpp \
     I2CDevice.cpp \
     Logger.cpp \
-    Greenhouse.cpp
+    Greenhouse.cpp \
+    TemperatureController.cpp \
+    LightController.cpp \
+    HumidityController.cpp

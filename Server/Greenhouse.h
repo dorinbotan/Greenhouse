@@ -3,76 +3,50 @@
 
 #include <QThread>
 #include <unistd.h>
-#include "HIH8120.h"
 #include "ADC.h"
 #include "DAC.h"
+#include "HIH8120.h"
+#include "HumidityController.h"
+#include "TemperatureController.h"
+#include "LightController.h"
 
 #include <QDebug>
-
-class HumidityController : public QThread
-{
-    Q_OBJECT
-
-public:
-    int value;
-
-protected:
-    void run();
-};
-
-class TemperatureController : public QThread
-{
-    Q_OBJECT
-
-public:
-    int value;
-
-protected:
-    void run();
-};
-
-class LightController : public QThread
-{
-    Q_OBJECT
-
-public:
-    int value;
-
-protected:
-    void run();
-};
 
 class Greenhouse
 {
 public:
-    Greenhouse();
-    ~Greenhouse();
+    static Greenhouse& Instance();
 
-    uint8_t getHumidity();
-    uint8_t getTemperature();
-    uint16_t getLight();
+    Greenhouse( Greenhouse const& ) = delete;
+    void operator = ( Greenhouse const& ) = delete;
+
+    int getHumidity();
+    int getTemperature();
+    int getLight();
 
 //    void setHumidity( int );
 //    void setTemperature( int );
     void setLight( int );
 
-    uint8_t getLid();
+    int getLid();
     bool getHeater();
-    uint8_t getLamp();
+    int getLamp();
 
-//    void setLid( uint8_t );
+//    void setLid( int );
 //    void setHeater( bool );
-    void setLamp( uint8_t );
+    void setLamp( int );
 
 private:
-    TemperatureController humidityController;
+    Greenhouse();
+
+    HumidityController humidityController;
     TemperatureController temperatureController;
-    TemperatureController lightController;
+    LightController lightController;
     HIH8120 *hih8120;
     ADC *adc;
     DAC *dac;
 
-    uint8_t lampValue, lidValue;
+    int lampValue, lidValue;
     bool heaterValue;
 };
 

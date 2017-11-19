@@ -9,8 +9,6 @@
 class REST_API
 {
 public:
-    REST_API();
-
     QString processTemperature( QHttpRequestHeader header, QString body );
     QString processTemperatureMode( QHttpRequestHeader header, QString body );
     QString processHumidity( QHttpRequestHeader header, QString body );
@@ -28,7 +26,7 @@ private:
                                            QString contentType );
 
     MediaType mediaType;
-    Greenhouse greenhouse;
+    Greenhouse &greenhouse = Greenhouse::Instance();
 };
 
 #endif // REST_API_H

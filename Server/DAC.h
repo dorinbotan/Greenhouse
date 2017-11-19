@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <stdint.h>
 
 #define SLOTS "/sys/devices/platform/bone_capemgr/slots"
 #define PWM_PATH "/sys/class/pwm/pwmchip0/export"
@@ -19,7 +20,7 @@ public:
     ~DAC();
 
     // Set PWM intensity (0 - 100)
-    void setIntensity( uint8_t );
+    void setIntensity( int );
 
 private:
     // Load am33xx_pwm and BB-PWM1 overlays

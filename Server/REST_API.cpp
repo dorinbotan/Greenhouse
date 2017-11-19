@@ -4,10 +4,6 @@
 using QtJson::JsonObject;
 using QtJson::JsonArray;
 
-REST_API::REST_API()
-{
-}
-
 QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
 {
     QString responseHeader, responseBody;
