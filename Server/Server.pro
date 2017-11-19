@@ -9,7 +9,8 @@ HEADERS += \
     DAC.h \
     HIH8120.h \
     I2CDevice.h \
-    Logger.h
+    Logger.h \
+    Greenhouse.h
 
 SOURCES += \
     JSON.cpp \
@@ -21,4 +22,5 @@ SOURCES += \
     DAC.cpp \
     HIH8120.cpp \
     I2CDevice.cpp \
-    Logger.cpp
+    Logger.cpp \
+    Greenhouse.cpp

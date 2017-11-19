@@ -15,15 +15,13 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
     if( header.method().compare( "GET" ) == 0 )
     {
         // Return temperature value
-        responseBody = QString::number( hih8120.getTemperature() );
+        responseBody = QString::number( greenhouse.getTemperature() );
         responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
     }
     else if( header.method().compare( "POST" ) == 0 )
     {
         // Enable automatic temperature control at given value
-
-        logger.logAction( "" );
     }
     else if( header.method().compare( "PUT" ) == 0 )
     {
@@ -44,7 +42,7 @@ QString REST_API::processHumidity( QHttpRequestHeader header, QString body )
     if( header.method().compare( "GET" ) == 0 )
     {
         // Return humidity value
-        responseBody = QString::number( hih8120.getHumidity() );
+        responseBody = QString::number( greenhouse.getHumidity() );
         responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
     }
@@ -71,11 +69,9 @@ QString REST_API::processLight( QHttpRequestHeader header, QString body )
     if( header.method().compare( "GET" ) == 0 )
     {
         // Return light value
-        responseBody = QString::number( adc.readAnalog( 0 ) );
+        responseBody = QString::number( greenhouse.getLight() );
         responseHeader = getResponseHeader( 200, responseBody.size(),
                                             mediaType.toMIME( "text/plain" ) ).toString();
-
-        logger.logAction( "hello world!" );
     }
     else if( header.method().compare( "POST" ) == 0 )
     {

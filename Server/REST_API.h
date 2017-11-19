@@ -4,9 +4,7 @@
 #include <QHttpResponseHeader>
 #include "MediaType.h"
 #include "JSON.h"
-#include "Logger.h"
-#include "ADC.h"
-#include "HIH8120.h"
+#include "Greenhouse.h"
 
 class REST_API
 {
@@ -23,9 +21,7 @@ private:
                                            QString contentType );
 
     MediaType mediaType;
-    Logger logger;
-    ADC adc;
-    HIH8120 hih8120;
+    Greenhouse greenhouse;
 };
 
 #endif // REST_API_H
