@@ -69,13 +69,37 @@ void REST_Server::readClient()
     {
         os << api->processTemperature( requestHeader, requestBody );
     }
+    else if( QString::compare( requestHeader.path(), "/temperature/mode", Qt::CaseInsensitive) == 0 )
+    {
+        os << api->processTemperatureMode( requestHeader, requestBody );
+    }
     else if( QString::compare( requestHeader.path(), "/humidity", Qt::CaseInsensitive) == 0 )
     {
         os << api->processHumidity( requestHeader, requestBody );
     }
+    else if( QString::compare( requestHeader.path(), "/humidity/mode", Qt::CaseInsensitive) == 0 )
+    {
+        os << api->processHumidityMode( requestHeader, requestBody );
+    }
     else if( QString::compare( requestHeader.path(), "/light", Qt::CaseInsensitive) == 0 )
     {
         os << api->processLight( requestHeader, requestBody );
+    }
+    else if( QString::compare( requestHeader.path(), "/light/mode", Qt::CaseInsensitive) == 0 )
+    {
+        os << api->processLightMode( requestHeader, requestBody );
+    }
+    else if( QString::compare( requestHeader.path(), "/heater", Qt::CaseInsensitive) == 0 )
+    {
+        os << api->processHeater( requestHeader, requestBody );
+    }
+    else if( QString::compare( requestHeader.path(), "/lid", Qt::CaseInsensitive) == 0 )
+    {
+        os << api->processLid( requestHeader, requestBody );
+    }
+    else if( QString::compare( requestHeader.path(), "/lamp", Qt::CaseInsensitive) == 0 )
+    {
+        os << api->processLamp( requestHeader, requestBody );
     }
 
     clientSocket->close();

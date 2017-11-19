@@ -45,7 +45,7 @@ void DAC::setIntensity( uint8_t intensity )
 {
     fstream fs;
     fs.open( PWM_DUTY_CYCLE, fstream::out );
-    fs << (uint32_t)( 20000000 - ( intensity * 200000 ) );
+    fs << (uint32_t)( 20000000 - ( ( 100 - intensity ) * 200000 ) );
     fs.close();
 }
 

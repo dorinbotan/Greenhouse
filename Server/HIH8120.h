@@ -2,7 +2,6 @@
 #define HIH_H_
 
 #include "I2CDevice.h"
-#include <unistd.h>
 
 using namespace exploringBB;
 

@@ -12,8 +12,15 @@ public:
     REST_API();
 
     QString processTemperature( QHttpRequestHeader header, QString body );
+    QString processTemperatureMode( QHttpRequestHeader header, QString body );
     QString processHumidity( QHttpRequestHeader header, QString body );
+    QString processHumidityMode( QHttpRequestHeader header, QString body );
     QString processLight( QHttpRequestHeader header, QString body );
+    QString processLightMode( QHttpRequestHeader header, QString body );
+
+    QString processHeater( QHttpRequestHeader header, QString body );
+    QString processLid( QHttpRequestHeader header, QString body );
+    QString processLamp( QHttpRequestHeader header, QString body );
 
 private:
     QHttpResponseHeader getResponseHeader( quint16 responseCode,

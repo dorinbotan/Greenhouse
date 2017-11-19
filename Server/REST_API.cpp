@@ -22,6 +22,7 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
     else if( header.method().compare( "POST" ) == 0 )
     {
         // Enable automatic temperature control at given value
+        qDebug() << body;
     }
     else if( header.method().compare( "PUT" ) == 0 )
     {
@@ -33,6 +34,11 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
     }
 
     return responseHeader + responseBody;
+}
+
+QString REST_API::processTemperatureMode( QHttpRequestHeader header, QString body )
+{
+    return getResponseHeader( 404, 0, mediaType.toMIME( "text/plain" ) ).toString();
 }
 
 QString REST_API::processHumidity( QHttpRequestHeader header, QString body )
@@ -62,6 +68,11 @@ QString REST_API::processHumidity( QHttpRequestHeader header, QString body )
     return responseHeader + responseBody;
 }
 
+QString REST_API::processHumidityMode( QHttpRequestHeader header, QString body )
+{
+    return getResponseHeader( 404, 0, mediaType.toMIME( "text/plain" ) ).toString();
+}
+
 QString REST_API::processLight( QHttpRequestHeader header, QString body )
 {
     QString responseHeader, responseBody;
@@ -87,6 +98,26 @@ QString REST_API::processLight( QHttpRequestHeader header, QString body )
     }
 
     return responseHeader + responseBody;
+}
+
+QString REST_API::processLightMode( QHttpRequestHeader header, QString body )
+{
+    return getResponseHeader( 404, 0, mediaType.toMIME( "text/plain" ) ).toString();
+}
+
+QString REST_API::processHeater( QHttpRequestHeader header, QString body )
+{
+    return getResponseHeader( 404, 0, mediaType.toMIME( "text/plain" ) ).toString();
+}
+
+QString REST_API::processLid( QHttpRequestHeader header, QString body )
+{
+    return getResponseHeader( 404, 0, mediaType.toMIME( "text/plain" ) ).toString();
+}
+
+QString REST_API::processLamp( QHttpRequestHeader header, QString body )
+{
+    return getResponseHeader( 404, 0, mediaType.toMIME( "text/plain" ) ).toString();
 }
 
 QHttpResponseHeader REST_API::getResponseHeader( quint16 responseCode,

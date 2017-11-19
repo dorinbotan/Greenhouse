@@ -8,8 +8,6 @@
 #include <QHttpRequestHeader>
 #include "REST_API.h"
 
-#include <QDebug>
-
 class REST_Server : QObject
 {
     Q_OBJECT

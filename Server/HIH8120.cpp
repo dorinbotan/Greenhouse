@@ -1,6 +1,5 @@
 #include "HIH8120.h"
-
-#include <QDebug>
+#include <unistd.h>
 
 /**
  * Constructor. Sets the object of type I2CDevice, to access its functions.
@@ -31,6 +30,8 @@ double HIH8120::getTemperature()
  */
 double HIH8120::getHumidity()
 {
+    sensor->write(0);
+    usleep(40000);
     unsigned char *data = ( sensor->readDevice( 2 ) );
     double humidity = ( ( data[0] << 8 ) | data[1] ) & 0b0011111111111111;
     return humidity * ( 100.0 / ( ( 1<<14 ) - 2 ) );
