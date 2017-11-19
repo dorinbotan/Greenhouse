@@ -22,8 +22,8 @@ public:
 
 private:
     QHttpResponseHeader getResponseHeader( quint16 responseCode,
-                                           int contentLength,
-                                           QString contentType );
+                                           int contentLength = 0,
+                                           QString contentType = "" );
 
     MediaType mediaType;
     Greenhouse &greenhouse = Greenhouse::Instance();
