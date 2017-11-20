@@ -25,10 +25,8 @@ public class Greenhouse {
                 .url("http://192.168.87.110:8091/humidity")
                 .build();
 
-        throw new IOException();
-
-//        Response response = client.newCall(request).execute();
-//        return response.body().string();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 
     public String getTemperature() throws IOException {
@@ -36,15 +34,40 @@ public class Greenhouse {
                 .url("http://192.168.87.110:8091/temperature")
                 .build();
 
-        throw new IOException();
-
-//        Response response = client.newCall(request).execute();
-//        return response.body().string();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 
     public String getLight() throws IOException {
         Request request = new Request.Builder()
                 .url("http://192.168.87.110:8091/light")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    public String getLid() throws IOException {
+        Request request = new Request.Builder()
+                .url("http://192.168.87.110:8091/lid")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    public String getHeater() throws IOException {
+        Request request = new Request.Builder()
+                .url("http://192.168.87.110:8091/heater")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+    
+    public String getLapm() throws IOException {
+        Request request = new Request.Builder()
+                .url("http://192.168.87.110:8091/lamp")
                 .build();
 
         Response response = client.newCall(request).execute();
