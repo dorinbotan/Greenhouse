@@ -70,6 +70,9 @@ Greenhouse::Greenhouse()
     adc = new ADC();
     dac = new DAC();
 
+    setAutoHumidity( 0 );
+    setAutoTemperature( 0 );
+    setAutoLight( 0 );
     setLid( 0 );
     setHeater( 0 );
     setLamp( 0 );
@@ -93,7 +96,8 @@ int Greenhouse::getLight()
 void Greenhouse::setHumidity( int value )
 {
     humidityController.value = value;
-    if( ! humidityController.isRunning() )
+
+    if( !getAutoHumidity() )
     {
         humidityController.start();
     }
@@ -102,7 +106,8 @@ void Greenhouse::setHumidity( int value )
 void Greenhouse::setTemperature( int value )
 {
     temperatureController.value = value;
-    if( !temperatureController.isRunning() )
+
+    if( !getAutoTemperature() )
     {
         temperatureController.start();
     }
@@ -111,9 +116,64 @@ void Greenhouse::setTemperature( int value )
 void Greenhouse::setLight( int value )
 {
     lightController.value = value;
-    if( !lightController.isRunning() )
+
+    if( !getAutoLight() )
     {
         lightController.start();
+    }
+}
+
+bool Greenhouse::getAutoHumidity()
+{
+    return humidityController.isRunning();
+}
+
+bool Greenhouse::getAutoTemperature()
+{
+    return temperatureController.isRunning();
+}
+
+bool Greenhouse::getAutoLight()
+{
+    return lightController.isRunning();
+}
+
+void Greenhouse::setAutoHumidity( bool value )
+{
+    if( value && !getAutoHumidity() )
+    {
+        humidityController.value = getHumidity();
+        humidityController.start();
+    }
+    else if( !value && getAutoHumidity() )
+    {
+        humidityController.exit( 0 );
+    }
+}
+
+void Greenhouse::setAutoTemperature( bool value )
+{
+    if( value && !getAutoTemperature() )
+    {
+        temperatureController.value = getTemperature();
+        temperatureController.start();
+    }
+    else if( !value && getAutoTemperature() )
+    {
+        temperatureController.exit( 0 );
+    }
+}
+
+void Greenhouse::setAutoLight( bool value )
+{
+    if( value && !getAutoLight() )
+    {
+        lightController.value = getLight();
+        lightController.start();
+    }
+    else if( !value && getAutoLight() )
+    {
+        lightController.exit( 0 );
     }
 }
 
@@ -134,34 +194,18 @@ int Greenhouse::getLamp()
 
 void Greenhouse::setLid( int value )
 {
-    if( humidityController.isRunning() )
-    {
-        humidityController.exit( 0 );
-    }
-
     lidValue = value;
     // Set lid
 }
 
 void Greenhouse::setHeater( bool value )
 {
-
-    if( temperatureController.isRunning() )
-    {
-        temperatureController.exit( 0 );
-    }
-
     heaterValue = value;
     // Set heater
 }
 
 void Greenhouse::setLamp( int value )
 {
-    if( lightController.isRunning() )
-    {
-        lightController.exit( 0 );
-    }
-
     lampValue = value;
     dac->setIntensity( lampValue );
 }

@@ -52,6 +52,7 @@ public:
     Greenhouse( Greenhouse const& ) = delete;
     void operator = ( Greenhouse const& ) = delete;
 
+    // Return humidity value
     int getHumidity();
     int getTemperature();
     int getLight();
@@ -61,10 +62,22 @@ public:
     void setTemperature( int );
     void setLight( int );
 
+    // Return true is humidity is being automaticaly controlled
+    bool getAutoHumidityMode();
+    bool getAutoTemperatureMode();
+    bool getAutoLightMode();
+
+    // Automaticaly keep humidity at it's current value
+    void setAutoHumidityMode( bool );
+    void setAutoTemperatureMode( bool );
+    void setAutoLightMode( bool );
+
+    // Return lid value
     int getLid();
     bool getHeater();
     int getLamp();
 
+    // Set lid value
     // TODO: implement
     void setLid( int );
     // TODO: implement

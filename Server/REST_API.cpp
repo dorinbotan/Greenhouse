@@ -6,7 +6,8 @@ using QtJson::JsonArray;
 
 QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
 {
-    QString responseHeader, responseBody;
+    QString responseHeader = getResponseHeader( 404 ).toString();
+    QString responseBody;
 
     if( header.method().compare( "GET" ) == 0 )
     {
@@ -18,7 +19,7 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
     else if( header.method().compare( "POST" ) == 0 )
     {
         // Enable automatic temperature control at given value
-        // TODO: implement
+        greenhouse.setTemperature( body.toInt() );
     }
     else if( header.method().compare( "PUT" ) == 0 )
     {
@@ -28,7 +29,8 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
     else if( header.method().compare( "DELETE" ) == 0 )
     {
         // Disable automatic temperature control
-        greenhouse.setHeater( greenhouse.getHeater() );
+        greenhouse.setAutoTemperature( false );
+        greenhouse.setHeater( 0 );
         responseHeader = getResponseHeader( 200 ).toString();
     }
 
@@ -37,13 +39,40 @@ QString REST_API::processTemperature( QHttpRequestHeader header, QString body )
 
 QString REST_API::processTemperatureMode( QHttpRequestHeader header, QString body )
 {
-    // TODO: implement
-    return getResponseHeader( 404 ).toString();
+    QString responseHeader = getResponseHeader( 404 ).toString();
+    QString responseBody;
+
+     if( header.method().compare( "GET" ) == 0 )
+     {
+         // Return auto temperature value
+         responseBody = QString::number( greenhouse.getAutoTemperature() );
+         responseHeader = getResponseHeader( 200, responseBody.size(),
+                                             mediaType.toMIME( "text/plain" ) ).toString();
+     }
+     else if( header.method().compare( "POST" ) == 0 )
+     {
+         // Set auto temperature mode
+         // TODO: implement
+     }
+     else if( header.method().compare( "PUT" ) == 0 )
+     {
+         // Reset desired temperature value
+         // TODO: implement
+     }
+     else if( header.method().compare( "DELETE" ) == 0 )
+     {
+         // Unset automatic temperature control
+         greenhouse.setAutoTemperature( false );
+         responseHeader = getResponseHeader( 200 ).toString();
+     }
+
+     return responseHeader + responseBody;
 }
 
 QString REST_API::processHumidity( QHttpRequestHeader header, QString body )
 {
-    QString responseHeader, responseBody;
+    QString responseHeader = getResponseHeader( 404 ).toString();
+    QString responseBody;
 
     if( header.method().compare( "GET" ) == 0 )
     {
@@ -55,7 +84,7 @@ QString REST_API::processHumidity( QHttpRequestHeader header, QString body )
     else if( header.method().compare( "POST" ) == 0 )
     {
         // Enable automatic humidity control at given value
-        // TODO: implement
+        greenhouse.setHumidity( body.toInt() );
     }
     else if( header.method().compare( "PUT" ) == 0 )
     {
@@ -80,7 +109,8 @@ QString REST_API::processHumidityMode( QHttpRequestHeader header, QString body )
 
 QString REST_API::processLight( QHttpRequestHeader header, QString body )
 {
-    QString responseHeader, responseBody;
+    QString responseHeader = getResponseHeader( 404 ).toString();
+    QString responseBody;
 
     if( header.method().compare( "GET" ) == 0 )
     {
@@ -92,7 +122,7 @@ QString REST_API::processLight( QHttpRequestHeader header, QString body )
     else if( header.method().compare( "POST" ) == 0 )
     {
         // Enable automatic light control at given value
-        // TODO: implement
+        greenhouse.setLight( body.toInt() );
     }
     else if( header.method().compare( "PUT" ) == 0 )
     {
@@ -117,20 +147,92 @@ QString REST_API::processLightMode( QHttpRequestHeader header, QString body )
 
 QString REST_API::processHeater( QHttpRequestHeader header, QString body )
 {
-    // TODO: implement
-    return getResponseHeader( 404 ).toString();
+    QString responseHeader = getResponseHeader( 404 ).toString();
+    QString responseBody;
+
+    if( header.method().compare( "GET" ) == 0 )
+    {
+        // Return heater value
+        responseBody = QString::number( greenhouse.getHeater() );
+        responseHeader = getResponseHeader( 200, responseBody.size(),
+                                            mediaType.toMIME( "text/plain" ) ).toString();
+    }
+    else if( header.method().compare( "POST" ) == 0 )
+    {
+        // TODO: implement
+    }
+    else if( header.method().compare( "PUT" ) == 0 )
+    {
+        // TODO: implement
+    }
+    else if( header.method().compare( "DELETE" ) == 0 )
+    {
+        // Disable manual temperature control
+        greenhouse.setTemperature( greenhouse.getTemperature() );
+        responseHeader = getResponseHeader( 200 ).toString();
+    }
+
+    return responseHeader + responseBody;
 }
 
 QString REST_API::processLid( QHttpRequestHeader header, QString body )
 {
-    // TODO: implement
-    return getResponseHeader( 404 ).toString();
+    QString responseHeader = getResponseHeader( 404 ).toString();
+    QString responseBody;
+
+    if( header.method().compare( "GET" ) == 0 )
+    {
+        // Return lid value
+        responseBody = QString::number( greenhouse.getLid() );
+        responseHeader = getResponseHeader( 200, responseBody.size(),
+                                            mediaType.toMIME( "text/plain" ) ).toString();
+    }
+    else if( header.method().compare( "POST" ) == 0 )
+    {
+        // TODO: implement
+    }
+    else if( header.method().compare( "PUT" ) == 0 )
+    {
+        // TODO: implement
+    }
+    else if( header.method().compare( "DELETE" ) == 0 )
+    {
+        // Disable manual humidity control
+        greenhouse.setHumidity( greenhouse.getHumidity() );
+        responseHeader = getResponseHeader( 200 ).toString();
+    }
+
+    return responseHeader + responseBody;
 }
 
 QString REST_API::processLamp( QHttpRequestHeader header, QString body )
 {
-    // TODO: implement
-    return getResponseHeader( 404 ).toString();
+    QString responseHeader = getResponseHeader( 404 ).toString();
+    QString responseBody;
+
+    if( header.method().compare( "GET" ) == 0 )
+    {
+        // Return lamp value
+        responseBody = QString::number( greenhouse.getLamp() );
+        responseHeader = getResponseHeader( 200, responseBody.size(),
+                                            mediaType.toMIME( "text/plain" ) ).toString();
+    }
+    else if( header.method().compare( "POST" ) == 0 )
+    {
+        // TODO: implement
+    }
+    else if( header.method().compare( "PUT" ) == 0 )
+    {
+        // TODO: implement
+    }
+    else if( header.method().compare( "DELETE" ) == 0 )
+    {
+        // Disable manual light control
+        greenhouse.setLight( greenhouse.getLight() );
+        responseHeader = getResponseHeader( 200 ).toString();
+    }
+
+    return responseHeader + responseBody;
 }
 
 QHttpResponseHeader REST_API::getResponseHeader( quint16 responseCode,
