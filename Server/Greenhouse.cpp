@@ -1,5 +1,7 @@
 #include "Greenhouse.h"
 
+#include <QProcess>
+
 void HumidityController::run()
 {
     Greenhouse &greenhouse = Greenhouse::Instance();
@@ -198,7 +200,10 @@ int Greenhouse::getLamp()
 void Greenhouse::setLid( int value )
 {
     lidValue = value;
+
     // Set lid
+    QString instruction = "~/Server/servo.sh " + QString( value );
+    QProcess::execute( instruction );
 }
 
 void Greenhouse::setHeater( bool value )
