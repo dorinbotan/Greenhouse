@@ -28,24 +28,45 @@ public class Humidity {
         modeView = (TextView)parent.findViewById(R.id.humidityMode);
         seekBarView = (SeekBar)parent.findViewById(R.id.humiditySeekBar);
 
-//        mode = greenhouse.getHumidityMode();
+        try {
+            mode = greenhouse.getHumidityMode();
+            setMode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mode = !mode;
+                setMode();
 
-                if(mode)
-                    modeView.setText("auto (" + Integer.toString(seekBarView.getProgress()) + "%)");
-                else
-                    modeView.setText("manual (" + Integer.toString(seekBarView.getProgress()) + "%)");
+                try {
+                    if(mode) {
+                        greenhouse.setHumidity(seekBarView.getProgress());
+                    }
+                    else {
+                        greenhouse.setLid(seekBarView.getProgress());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         seekBarView.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                System.out.println(seekBar.getProgress());
+                try {
+                    if(mode) {
+                        greenhouse.setHumidity(seekBarView.getProgress());
+                    }
+                    else {
+                        greenhouse.setLid(seekBarView.getProgress());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -72,5 +93,20 @@ public class Humidity {
 //                handler.postDelayed(this, 3000);
             }
         }, 0);
+    }
+
+    private void setMode() {
+        if(mode) {
+            int tmp = seekBarView.getProgress();
+            seekBarView.setMax(100);
+            seekBarView.setProgress(tmp * 100 / 45);
+            modeView.setText("auto (" + Integer.toString(seekBarView.getProgress()) + "%)");
+        }
+        else {
+            int tmp = seekBarView.getProgress();
+            seekBarView.setMax(45);
+            seekBarView.setProgress(tmp * 45 / 100);
+            modeView.setText("manual (" + Integer.toString(seekBarView.getProgress()) + "°)");
+        }
     }
 }

@@ -28,17 +28,29 @@ public class Temperature {
         modeView = (TextView)parent.findViewById(R.id.temperatureMode);
         seekBarView = (SeekBar)parent.findViewById(R.id.temperatureSeekBar);
 
-//        mode = greenhouse.getHumidityMode();
+        try {
+            mode = greenhouse.getTemperatureMode();
+            setMode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mode = !mode;
+                setMode();
 
-                if(mode)
-                    modeView.setText("auto (" + Integer.toString(seekBarView.getProgress()) + "°C)");
-                else
-                    modeView.setText("manual (" + Integer.toString(seekBarView.getProgress()) + ")");
+                try {
+                    if(mode) {
+                        greenhouse.setTemperature(seekBarView.getProgress());
+                    }
+                    else {
+                        greenhouse.setHeater(seekBarView.getProgress());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -55,8 +67,13 @@ public class Temperature {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(mode)
                     modeView.setText("auto (" + Integer.toString(progress) + "°C)");
-                else
-                    modeView.setText("manual (" + Integer.toString(progress) + ")");
+                else {
+                    if (seekBarView.getProgress() == 0) {
+                        modeView.setText("manual (OFF)");
+                    } else {
+                        modeView.setText("manual (ON)");
+                    }
+                }
             }
         });
 
@@ -72,5 +89,24 @@ public class Temperature {
 //                handler.postDelayed(this, 3000);
             }
         }, 0);
+    }
+
+    private void setMode() {
+        if(mode) {
+            int tmp = seekBarView.getProgress();
+            seekBarView.setMax(100);
+            seekBarView.setProgress(tmp * 100 / 2);
+            modeView.setText("auto (" + Integer.toString(seekBarView.getProgress()) + "°C)");
+        }
+        else {
+            int tmp = seekBarView.getProgress();
+            seekBarView.setMax(1);
+            seekBarView.setProgress(tmp * 2 / 100);
+            if (seekBarView.getProgress() == 0) {
+                modeView.setText("manual (OFF)");
+            } else {
+                modeView.setText("manual (ON)");
+            }
+        }
     }
 }

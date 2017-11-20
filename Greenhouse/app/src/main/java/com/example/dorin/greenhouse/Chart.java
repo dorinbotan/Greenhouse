@@ -10,5 +10,7 @@ public class Chart {
         webView = (WebView)parent.findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/index.html");
+
+        webView.loadUrl("javascript:testEcho('-------------------------------')");
     }
 }

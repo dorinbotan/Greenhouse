@@ -8,6 +8,10 @@
     <canvas id="speedChart" width="600" height="400"></canvas>
     
     <script>
+        var testEcho = function(message) {
+            window.JSInterface.doEchoTest(message);
+        }
+
         var speedCanvas = document.getElementById("speedChart");
 
         var dataHumidity = {

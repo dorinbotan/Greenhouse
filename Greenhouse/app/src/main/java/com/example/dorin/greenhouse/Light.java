@@ -28,17 +28,29 @@ public class Light {
         modeView = (TextView)parent.findViewById(R.id.lightMode);
         seekBarView = (SeekBar)parent.findViewById(R.id.lightSeekBar);
 
-//        mode = greenhouse.getHumidityMode();
+        try {
+            mode = greenhouse.getLightMode();
+            setMode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mode = !mode;
+                setMode();
 
-                if(mode)
-                    modeView.setText("auto (" + Integer.toString(seekBarView.getProgress()) + "%)");
-                else
-                    modeView.setText("manual (" + Integer.toString(seekBarView.getProgress()) + "%)");
+                try {
+                    if(mode) {
+                        greenhouse.setLight(seekBarView.getProgress());
+                    }
+                    else {
+                        greenhouse.setLamp(seekBarView.getProgress());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -54,7 +66,7 @@ public class Light {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(mode)
-                    modeView.setText("auto (" + Integer.toString(progress) + "%)");
+                    modeView.setText("auto (" + Integer.toString(progress) + ")");
                 else
                     modeView.setText("manual (" + Integer.toString(progress) + "%)");
             }
@@ -64,7 +76,7 @@ public class Light {
         handler.postDelayed(new Runnable(){
             public void run(){
                 try {
-                    valueView.setText(greenhouse.getLight() + " %");
+                    valueView.setText(greenhouse.getLight());
                 } catch (IOException e) {
                     valueView.setText("N/A");
                 }
@@ -72,5 +84,20 @@ public class Light {
 //                handler.postDelayed(this, 3000);
             }
         }, 0);
+    }
+
+    private void setMode() {
+        if(mode) {
+            int tmp = seekBarView.getProgress();
+            seekBarView.setMax(4095);
+            seekBarView.setProgress(tmp * 4095 / 100);
+            modeView.setText("auto (" + Integer.toString(seekBarView.getProgress()) + ")");
+        }
+        else {
+            int tmp = seekBarView.getProgress();
+            seekBarView.setMax(100);
+            seekBarView.setProgress(tmp * 100 / 4095);
+            modeView.setText("manual (" + Integer.toString(seekBarView.getProgress()) + "%)");
+        }
     }
 }
