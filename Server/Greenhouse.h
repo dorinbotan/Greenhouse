@@ -79,7 +79,6 @@ public:
 
     // Set lid value
     void setLid( int );
-    // TODO: implement
     void setHeater( bool );
     void setLamp( int );
 

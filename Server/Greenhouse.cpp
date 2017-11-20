@@ -8,7 +8,6 @@ void HumidityController::run()
 
     while( 1 )
     {
-        // TODO: choose appropriate border values
         if( greenhouse.getHumidity() < value && greenhouse.getLid() < 45 )
         {
             greenhouse.setLid( greenhouse.getLid() + 1 );
@@ -68,6 +67,8 @@ Greenhouse& Greenhouse::Instance()
 
 Greenhouse::Greenhouse()
 {
+    QProcess::execute( "~/Server/config.sh " );
+
     hih8120 = new HIH8120(2, 0x27);
     adc = new ADC();
     dac = new DAC();
@@ -210,6 +211,8 @@ void Greenhouse::setHeater( bool value )
 {
     heaterValue = value;
     // Set heater
+    QString parameter = value ? "1" : "0";
+    QProcess::execute( "~/Server/heater.sh " + parameter );
 }
 
 void Greenhouse::setLamp( int value )
