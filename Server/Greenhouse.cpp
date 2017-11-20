@@ -140,9 +140,10 @@ bool Greenhouse::getAutoLight()
 
 void Greenhouse::setAutoHumidity( bool value )
 {
+    humidityController.value = getHumidity();
+
     if( value && !getAutoHumidity() )
     {
-        humidityController.value = getHumidity();
         humidityController.start();
     }
     else if( !value && getAutoHumidity() )
@@ -153,9 +154,10 @@ void Greenhouse::setAutoHumidity( bool value )
 
 void Greenhouse::setAutoTemperature( bool value )
 {
+    temperatureController.value = getTemperature();
+
     if( value && !getAutoTemperature() )
     {
-        temperatureController.value = getTemperature();
         temperatureController.start();
     }
     else if( !value && getAutoTemperature() )
@@ -166,9 +168,10 @@ void Greenhouse::setAutoTemperature( bool value )
 
 void Greenhouse::setAutoLight( bool value )
 {
+    lightController.value = getLight();
+
     if( value && !getAutoLight() )
     {
-        lightController.value = getLight();
         lightController.start();
     }
     else if( !value && getAutoLight() )

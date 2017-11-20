@@ -10,11 +10,12 @@ class REST_API
 {
 public:
     QString processTemperature( QHttpRequestHeader header, QString body );
-    QString processTemperatureMode( QHttpRequestHeader header, QString body );
+    QString processTemperatureMode( QHttpRequestHeader header );
     QString processHumidity( QHttpRequestHeader header, QString body );
-    QString processHumidityMode( QHttpRequestHeader header, QString body );
+
+    QString processHumidityMode( QHttpRequestHeader header );
     QString processLight( QHttpRequestHeader header, QString body );
-    QString processLightMode( QHttpRequestHeader header, QString body );
+    QString processLightMode( QHttpRequestHeader header );
 
     QString processHeater( QHttpRequestHeader header, QString body );
     QString processLid( QHttpRequestHeader header, QString body );

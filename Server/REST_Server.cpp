@@ -71,7 +71,7 @@ void REST_Server::readClient()
     }
     else if( QString::compare( requestHeader.path(), "/temperature/mode", Qt::CaseInsensitive) == 0 )
     {
-        os << api->processTemperatureMode( requestHeader, requestBody );
+        os << api->processTemperatureMode( requestHeader );
     }
     else if( QString::compare( requestHeader.path(), "/humidity", Qt::CaseInsensitive) == 0 )
     {
@@ -79,7 +79,7 @@ void REST_Server::readClient()
     }
     else if( QString::compare( requestHeader.path(), "/humidity/mode", Qt::CaseInsensitive) == 0 )
     {
-        os << api->processHumidityMode( requestHeader, requestBody );
+        os << api->processHumidityMode( requestHeader );
     }
     else if( QString::compare( requestHeader.path(), "/light", Qt::CaseInsensitive) == 0 )
     {
@@ -87,7 +87,7 @@ void REST_Server::readClient()
     }
     else if( QString::compare( requestHeader.path(), "/light/mode", Qt::CaseInsensitive) == 0 )
     {
-        os << api->processLightMode( requestHeader, requestBody );
+        os << api->processLightMode( requestHeader );
     }
     else if( QString::compare( requestHeader.path(), "/heater", Qt::CaseInsensitive) == 0 )
     {

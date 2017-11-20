@@ -63,14 +63,14 @@ public:
     void setLight( int );
 
     // Return true is humidity is being automaticaly controlled
-    bool getAutoHumidityMode();
-    bool getAutoTemperatureMode();
-    bool getAutoLightMode();
+    bool getAutoHumidity();
+    bool getAutoTemperature();
+    bool getAutoLight();
 
     // Automaticaly keep humidity at it's current value
-    void setAutoHumidityMode( bool );
-    void setAutoTemperatureMode( bool );
-    void setAutoLightMode( bool );
+    void setAutoHumidity( bool );
+    void setAutoTemperature( bool );
+    void setAutoLight( bool );
 
     // Return lid value
     int getLid();
