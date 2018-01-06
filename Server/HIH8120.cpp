@@ -11,7 +11,6 @@ HIH8120::HIH8120( unsigned int bus, unsigned int device )
     sensor = new I2CDevice( bus, device );
 }
 
-
  /**
  * Get temperature value 
  * @return float between -40 and 125
@@ -24,6 +23,7 @@ double HIH8120::getTemperature()
     double temperature = ( data[2] << 6 ) | ( data[3] >> 2 );
     return temperature * ( 165.0 / ( ( 1 << 14 ) - 2 ) ) - 40;
 }
+
 /**
  * Get humidity value in percentage
  * @return float between -40 and 125

@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include "ADC.h"
 #include "DAC.h"
+#include "GPIO.h"
 #include "HIH8120.h"
 
 #include <QDebug>
@@ -91,6 +92,8 @@ private:
     HIH8120 *hih8120;
     ADC *adc;
     DAC *dac;
+    GPIO *gpio49;
+    GPIO *gpio115;
 
     int lampValue, lidValue;
     bool heaterValue;

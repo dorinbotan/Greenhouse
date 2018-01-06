@@ -63,7 +63,6 @@ int ADC::getSlotNumber()
             if( g == "Manuf,BB-ADC" )
             {
                 return std::stoi( a.substr( 0, a.find( ":" ) ) );
-                return 0;
             }
         }
     }

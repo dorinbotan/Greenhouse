@@ -13,6 +13,7 @@ HEADERS += \
     I2CDevice.h \
     Logger.h \
     Greenhouse.h \
+    GPIO.h
 
 SOURCES += \
     JSON.cpp \
@@ -26,3 +27,4 @@ SOURCES += \
     I2CDevice.cpp \
     Logger.cpp \
     Greenhouse.cpp \
+    GPIO.cpp

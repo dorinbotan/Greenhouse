@@ -67,16 +67,16 @@ Greenhouse& Greenhouse::Instance()
 
 Greenhouse::Greenhouse()
 {
-    QProcess::execute( "~/Server/config.sh " );
-
     hih8120 = new HIH8120(2, 0x27);
     adc = new ADC();
     dac = new DAC();
+    gpio49 = new GPIO( 49 );
+    gpio115 = new GPIO( 115 );
 
     setAutoHumidity( 0 );
     setAutoTemperature( 0 );
     setAutoLight( 0 );
-    setLid( 0 );
+//    setLid( 0 );
     setHeater( 0 );
     setLamp( 0 );
 }
@@ -210,9 +210,10 @@ void Greenhouse::setLid( int value )
 void Greenhouse::setHeater( bool value )
 {
     heaterValue = value;
+
     // Set heater
-    QString parameter = value ? "1" : "0";
-    QProcess::execute( "~/Server/heater.sh " + parameter );
+    gpio49->setDirection( 1 );
+    gpio115->setDirection( value );
 }
 
 void Greenhouse::setLamp( int value )
