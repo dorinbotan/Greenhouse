@@ -8,14 +8,7 @@ int main( int argc, char **argv )
 {
     QCoreApplication app( argc, argv );
 
-//    REST_Server server;
+    REST_Server server;
 
-    Greenhouse &greenhouse = Greenhouse::Instance();
-
-    while( 1 )
-    {
-        qDebug() << greenhouse.getHumidity() << greenhouse.getTemperature();
-    }
-
-//    return app.exec();
+    return app.exec();
 }

@@ -8,7 +8,7 @@ void HumidityController::run()
 
     while( 1 )
     {
-        if( greenhouse.getHumidity() < value && greenhouse.getLid() < 45 )
+        if( greenhouse.getHumidity() < value && greenhouse.getLid() < 100 )
         {
             greenhouse.setLid( greenhouse.getLid() + 1 );
         }
@@ -76,7 +76,7 @@ Greenhouse::Greenhouse()
     setAutoHumidity( 0 );
     setAutoTemperature( 0 );
     setAutoLight( 0 );
-//    setLid( 0 );
+    setLid( 0 );
     setHeater( 0 );
     setLamp( 0 );
 }
@@ -203,8 +203,7 @@ void Greenhouse::setLid( int value )
     lidValue = value;
 
     // Set lid
-    QString instruction = "~/Server/servo.sh " + QString( value );
-    QProcess::execute( instruction );
+    dac->setIntensity1B( lidValue );
 }
 
 void Greenhouse::setHeater( bool value )
@@ -219,5 +218,6 @@ void Greenhouse::setHeater( bool value )
 void Greenhouse::setLamp( int value )
 {
     lampValue = value;
-    dac->setIntensity( lampValue );
+
+    dac->setIntensity1A( lampValue );
 }

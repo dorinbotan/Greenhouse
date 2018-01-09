@@ -16,16 +16,38 @@ DAC::DAC()
         fs << 0;
         fs.close();
 
-        fs.open( PWM_PERIOD, fstream::out );
-        fs << 20000000;
-        fs.close();
-
-        fs.open( PWM_DUTY_CYCLE, fstream::out );
-        fs << 20000000;
-        fs.close();
-
-        fs.open( PWM_ENABLE, fstream::out );
+        fs.open( PWM_PATH, fstream::out );
         fs << 1;
+        fs.close();
+
+        fs.open( PWM1A_PERIOD, fstream::out );
+        fs << 20000000;
+        fs.close();
+
+        fs.open( PWM1B_PERIOD, fstream::out );
+        fs << 20000000;
+        fs.close();
+
+        fs.open( PWM1A_DUTY_CYCLE, fstream::out );
+        fs << 20000000;
+        fs.close();
+
+        fs.open( PWM1B_DUTY_CYCLE, fstream::out );
+        fs << 820000;
+        fs.close();
+
+        fs.open( PWM1A_ENABLE, fstream::out );
+        fs << 1;
+        fs.close();
+
+        fs.open( PWM1B_ENABLE, fstream::out );
+        fs << 1;
+        fs.close();
+
+        usleep( 200000 );
+
+        fs.open( PWM1B_ENABLE, fstream::out );
+        fs << 0;
         fs.close();
     }
 }
@@ -41,11 +63,29 @@ DAC::~DAC()
     }
 }
 
-void DAC::setIntensity( int intensity )
+void DAC::setIntensity1A( int intensity )
 {
     fstream fs;
-    fs.open( PWM_DUTY_CYCLE, fstream::out );
-    fs << (uint32_t)( 20000000 - ( ( 100 - intensity ) * 200000 ) );
+    fs.open( PWM1A_DUTY_CYCLE, fstream::out );
+    fs << (uint32_t)( 20000000 - ( intensity * 200000 ) );
+    fs.close();
+}
+
+void DAC::setIntensity1B( int intensity )
+{
+    fstream fs;
+    fs.open( PWM1B_DUTY_CYCLE, fstream::out );
+    fs << (uint32_t)( 800000 + ( intensity * 19000 ) );
+    fs.close();
+
+    fs.open( PWM1B_ENABLE, fstream::out );
+    fs << 1;
+    fs.close();
+
+    usleep( 200000 );
+
+    fs.open( PWM1B_ENABLE, fstream::out );
+    fs << 0;
     fs.close();
 }
 
