@@ -82,7 +82,7 @@ void DAC::setIntensity1B( int intensity )
     fs << 1;
     fs.close();
 
-    usleep( 200000 );
+    usleep( 500000 );
 
     fs.open( PWM1B_ENABLE, fstream::out );
     fs << 0;
